@@ -188,7 +188,7 @@
 					t_output4.innerHTML+="opening reader<br>";
 					let bReader = serialPort.readable.getReader();
 		
-		document.getElementById('bVer').innerHTML='v17.44';
+		document.getElementById('bVer').innerHTML='v17.4444';
 		
 		
 		
@@ -216,7 +216,7 @@
 			}
 			var partialMessage="";
 			timePosition=0;
-			timeTick=10;
+			timeTick=1; //ms
 			function process(chunk){
 			    //messaage shall end with CD/LF  \r\n
 				//chunk may have part of message, or more than 1 message
