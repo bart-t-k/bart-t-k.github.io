@@ -30,6 +30,7 @@
 					usbDevice = await navigator.usb.requestDevice({ filters: [{ vendorId: 0x2341 }] });
 					printUSBDeviceInfo(usbDevice);
 					
+					t_output4.innerHTML+="trying to open...<br>";
 					session = await usbDevice.open();
 
 				}catch(e){
