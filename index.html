@@ -188,7 +188,7 @@
 					t_output4.innerHTML+="opening reader<br>";
 					let bReader = serialPort.readable.getReader();
 		
-		document.getElementById('bVer').innerHTML='v16.44';
+		document.getElementById('bVer').innerHTML='v16.444';
 		
 		
 		
@@ -225,7 +225,7 @@
 				chunk = partialMessage + chunk;
 				partialMessage = "";
 				
-				if(!chunk.endsWith('\n'){
+				if(!chunk.endsWith('\n')){
 				    partialMessage=chunk;
 					return;
 				}
