@@ -188,7 +188,7 @@
 					t_output4.innerHTML+="opening reader<br>";
 					let bReader = serialPort.readable.getReader();
 		
-		document.getElementById('bVer').innerHTML='v17.1ms';
+		document.getElementById('bVer').innerHTML='v18.1ms';
 		
 		
 		
@@ -393,11 +393,11 @@
 			function drawNextData2(absX, data){
 			    
 				
-			    data = windowHeight-data;
+			    dataToDraw = windowHeight-data;
 				
 				var relX = absX%windowLength;
 				
-				if(relX<_lastX){ // dorysuj do konca ekranu, a potem od poczatku
+				if(relX<_lastX){ // dojechal do konca ekranu, a teraz od poczatku
 					var _now_drawNextData2 = Date.now();
 				    var _delta_drawNextData2=_now_drawNextData2-_strt_drawNextData2;
 				    _avgDeltaBuff_drawNextData2.addToBuffer(_delta_drawNextData2);
@@ -407,13 +407,13 @@
 					ctx.fillStyle = 'white'; 
 				    ctx.fillRect(_lastX, 0, windowLength-_lastX, windowHeight);
 					_lastX=0;
-					_lastY = data;
+					_lastY = dataToDraw;
 					
 					//cleen space on left end
 					ctx.fillStyle = 'white'; 
 				    ctx.fillRect(_lastX, 0, relX, windowHeight);
 					_lastX=relX;
-					_lastY = data;
+					_lastY = dataToDraw;
 					
 					return;
 				}
@@ -425,10 +425,10 @@
 				
 				ctx.beginPath();
 				ctx.moveTo(_lastX, _lastY);
-			    ctx.lineTo(relX, data);
+			    ctx.lineTo(relX, dataToDraw);
 				ctx.stroke();
                 _lastX = relX;
-				_lastY = data;
+				_lastY = dataToDraw;
 				
 
                 				
