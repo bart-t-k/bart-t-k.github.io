@@ -188,7 +188,7 @@
 					t_output4.innerHTML+="opening reader<br>";
 					let bReader = serialPort.readable.getReader();
 		
-		document.getElementById('bVer').innerHTML='v17.33';
+		document.getElementById('bVer').innerHTML='v17.333';
 		
 		
 		
@@ -242,7 +242,7 @@
 							
 							if(data[1]){
 							    timePosition+=timeTick;
-							    drawNextData2(timePosition, data);
+							    drawNextData2(timePosition, data[1]);
 							}
 						}
 				}
