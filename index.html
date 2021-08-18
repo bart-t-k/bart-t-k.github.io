@@ -188,7 +188,7 @@
 					t_output4.innerHTML+="opening reader<br>";
 					let bReader = serialPort.readable.getReader();
 		
-		document.getElementById('bVer').innerHTML='v16.44444';
+		document.getElementById('bVer').innerHTML='v17';
 		
 		
 		
@@ -215,6 +215,8 @@
 			
 			}
 			var partialMessage="";
+			timeposition=0;
+			timeTick=10;
 			function process(chunk){
 			    //messaage shall end with CD/LF  \r\n
 				//chunk may have part of message, or more than 1 message
@@ -232,7 +234,13 @@
 				}
 				messages = chunk.split('\r\n');
 				for(i in messages){
-				    t_output4.innerHTML+=  messages[i].length +"/ " + messages[i]+"<br>";
+				    if (messages[i].length>0) {
+					        //t_output4.innerHTML+=  messages[i].length +"/ " + messages[i]+"<br>";
+							let data = messages[i].split();
+							if(data[1]){
+							    drawNextData2(timePosition+=timeTick, data);
+							}
+						}
 				}
 				t_output4.innerHTML+="<hr>";
 			}
@@ -352,6 +360,7 @@
 			var _avgDeltaBuff_onData = new avgBuff();
 			var n=0;
 			async function onData(data) {
+			    return;
 				var _strt=Date.now();
 				
 				
