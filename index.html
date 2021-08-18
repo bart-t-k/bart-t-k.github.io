@@ -25,12 +25,31 @@
 			
 			
 			function requestUSBDevice(){
+			    t_output4.innerHTML="navigator.usb.requestDevice({ filters: [{ vendorId: 0x2341 }] })<br>";
 			    try{ // vendorId: 0x2341
 				    //navigator.usb.requestDevice( { filters: [{ classCode: 0x0 }] } )
 					navigator.usb.requestDevice({ filters: [{ vendorId: 0x2341 }] })
 						.then(usbDevice => {
 						  console.log("Product name: " + usbDevice.productName);
-						  t_output4.innerHTML+="navigator.usb.requestDevice Product name: " + usbDevice.productName+"<br>";
+						  t_output4.innerHTML+="productName: " + usbDevice.productName+"<br>";
+						  t_output4.innerHTML+="productId: " + usbDevice.productId+"<br>";
+						  t_output4.innerHTML+="vendorId: " + usbDevice.vendorId+"<br>";
+						  t_output4.innerHTML+="deviceClass: " + usbDevice.deviceClass+"<br>";
+						  t_output4.innerHTML+="deviceProtocol : " + usbDevice.deviceProtocol +"<br>";
+						  t_output4.innerHTML+="deviceSubclass: " + usbDevice.deviceSubclass+"<br>";
+						  t_output4.innerHTML+="deviceVersionMajor: " + usbDevice.deviceVersionMajor+"<br>";
+						  t_output4.innerHTML+="deviceVersionMinor: " + usbDevice.deviceVersionMinor+"<br>";
+						  t_output4.innerHTML+="deviceVersionSubminor: " + usbDevice.deviceVersionSubminor+"<br>";
+						  t_output4.innerHTML+="manufacturerName : " + usbDevice.manufacturerName +"<br>";
+						  t_output4.innerHTML+="opened : " + usbDevice.opened +"<br>";
+						  t_output4.innerHTML+="productId  : " + usbDevice.productId  +"<br>";
+						  t_output4.innerHTML+="productName  : " + usbDevice.productName  +"<br>";
+						  t_output4.innerHTML+="serialNumber: " + usbDevice.serialNumber+"<br>";
+						  t_output4.innerHTML+="usbVersionMajor  : " + usbDevice.usbVersionMajor  +"<br>";
+						  t_output4.innerHTML+="usbVersionMinor : " + usbDevice.usbVersionMinor +"<br>";
+						  t_output4.innerHTML+="usbVersionSubminor : " + usbDevice.usbVersionSubminor +"<br>";
+						  t_output4.innerHTML+="vendorId : " + usbDevice.vendorId +"<br>";
+						  t_output4.innerHTML+="configurations : " + usbDevice.configurations +"<br>";
 						})
 						.catch(e => {
 						  console.log("There is no device. " + e);
@@ -44,14 +63,33 @@
 				}catch(exc){}
 			}
 			function getUSBDevices(){
+			    t_output4.innerHTML="navigator.usb.getDevices()<br>";
 			    try{
 					navigator.usb.getDevices()
 					.then(devices => {
 					  console.log("navigator.usb.getDevices Total devices: " + devices.length);
 					  t_output4.innerHTML+="navigator.usb.getDevices Total devices: " + devices.length+"<br>";
-					  devices.forEach(device => {
-						console.log("navigator.usb.getDevices Product name: " + device.productName + ", serial number " + device.serialNumber);
-						t_output4.innerHTML+="navigator.usb.getDevices Product name: " + device.productName + ", serial number " + device.serialNumber+"<br>";
+					  devices.forEach(usbDevice => {
+						console.log("navigator.usb.getDevices Product name: " + usbDevice.productName + ", serial number " + usbDevice.serialNumber);
+						  t_output4.innerHTML+="productName: " + usbDevice.productName+"<br>";
+						  t_output4.innerHTML+="productId: " + usbDevice.productId+"<br>";
+						  t_output4.innerHTML+="vendorId: " + usbDevice.vendorId+"<br>";
+						  t_output4.innerHTML+="deviceClass: " + usbDevice.deviceClass+"<br>";
+						  t_output4.innerHTML+="deviceProtocol : " + usbDevice.deviceProtocol +"<br>";
+						  t_output4.innerHTML+="deviceSubclass: " + usbDevice.deviceSubclass+"<br>";
+						  t_output4.innerHTML+="deviceVersionMajor: " + usbDevice.deviceVersionMajor+"<br>";
+						  t_output4.innerHTML+="deviceVersionMinor: " + usbDevice.deviceVersionMinor+"<br>";
+						  t_output4.innerHTML+="deviceVersionSubminor: " + usbDevice.deviceVersionSubminor+"<br>";
+						  t_output4.innerHTML+="manufacturerName : " + usbDevice.manufacturerName +"<br>";
+						  t_output4.innerHTML+="opened : " + usbDevice.opened +"<br>";
+						  t_output4.innerHTML+="productId  : " + usbDevice.productId  +"<br>";
+						  t_output4.innerHTML+="productName  : " + usbDevice.productName  +"<br>";
+						  t_output4.innerHTML+="serialNumber: " + usbDevice.serialNumber+"<br>";
+						  t_output4.innerHTML+="usbVersionMajor  : " + usbDevice.usbVersionMajor  +"<br>";
+						  t_output4.innerHTML+="usbVersionMinor : " + usbDevice.usbVersionMinor +"<br>";
+						  t_output4.innerHTML+="usbVersionSubminor : " + usbDevice.usbVersionSubminor +"<br>";
+						  t_output4.innerHTML+="vendorId : " + usbDevice.vendorId +"<br>";
+						  t_output4.innerHTML+="configurations : " + usbDevice.configurations +"<br>";
 					  });
 					});
 				}catch(exc){
