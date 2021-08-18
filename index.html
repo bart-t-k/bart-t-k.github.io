@@ -389,14 +389,19 @@
 			var _lastX=0;
 			var _lastY=windowHeight;
 			var white=true;
+			var _strt_drawNextData2=Date.now();
 			function drawNextData2(absX, data){
-			    var _strt_drawNextData2=Date.now();
+			    
 				
 			    data = windowHeight-data;
 				
 				var relX = absX%windowLength;
 				
 				if(relX<_lastX){ // dorysuj do konca ekranu, a potem od poczatku
+					var _now_drawNextData2 = Date.now();
+				    var _delta_drawNextData2=_now_drawNextData2-_strt_drawNextData2;
+				    _avgDeltaBuff_drawNextData2.addToBuffer(_delta_drawNextData2);
+					_strt_drawNextData2=_now_drawNextData2;
 					
 					//cleen space on right end
 					ctx.fillStyle = 'white'; 
@@ -426,9 +431,7 @@
 				_lastY = data;
 				
 
-                var _now_drawNextData2 = Date.now();
-				var _delta_drawNextData2=_now_drawNextData2-_strt_drawNextData2;
-				_avgDeltaBuff_drawNextData2.addToBuffer(_delta_drawNextData2);				
+                				
 			    t_output.innerHTML= "drawNextData2: avgDelta:" + _avgDeltaBuff_drawNextData2.getAvg() + " data: " + data + " _lastX:" + _lastX + " relX: " + relX + " fill:" + ctx.fillStyle ;			
 			}
 			
