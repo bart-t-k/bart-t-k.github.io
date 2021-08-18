@@ -188,13 +188,14 @@
 					t_output4.innerHTML+="opening reader<br>";
 					let bReader = serialPort.readable.getReader();
 		
-		document.getElementById('bVer').innerHTML='v15.1';
+		document.getElementById('bVer').innerHTML='v16.11';
 		
 					while (1){
 				        let {value: chunk, done: readerDone} = await bReader.read();
 				    if(readerDone)break;
 					
-					t_output4.innerHTML+= " {" + readerDone + " "+chunk + "}";
+					chunk = chunk ? utf8Decoder.decode(chunk, {stream: true}) : "";
+					t_output4.innerHTML+= " " +chunk ;
 				    }
 					
 					
