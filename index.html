@@ -24,27 +24,8 @@
 			var t_output4=null;
 			
 			
-			function initUsb(){
-			    t_output4.innerHTML="";
-			    /*try{
-					navigator.usb.getDevices().then(devices => {
-						devices.forEach(
-										device => {
-							console.log(device.productName);      // "Arduino Micro"
-							console.log(device.manufacturerName); // "Arduino LLC"
-												  }	
-										);
-					});
-				}catch(exc){
-					    console.log("exception on usb");
-						console.log(exc);
-						
-						t_output4.innerHTML+="exception on usb<br>";
-						t_output4.innerHTML+=exc+"<br>";
-						t_output4.innerHTML+=exc.message+"<br>";
-				}*/
-				
-				try{ // vendorId: 0x2341
+			function requestUSBDevice(){
+			    try{ // vendorId: 0x2341
 				    //navigator.usb.requestDevice( { filters: [{ classCode: 0x0 }] } )
 					navigator.usb.requestDevice({ filters: [{ vendorId: 0x2341 }] })
 						.then(usbDevice => {
@@ -61,8 +42,9 @@
 						});
 				
 				}catch(exc){}
-				/*
-				try{
+			}
+			function getUSBDevices(){
+			    try{
 					navigator.usb.getDevices()
 					.then(devices => {
 					  console.log("navigator.usb.getDevices Total devices: " + devices.length);
@@ -78,7 +60,12 @@
 						t_output4.innerHTML+="exception on usb<br>";
 						t_output4.innerHTML+=exc+"<br>";
 						t_output4.innerHTML+=exc.message+"<br>";
-				}*/
+				}
+			}
+			function initUsb(){
+			    //t_output4.innerHTML="";
+
+				
 			}
 			
 			function avgBuff(){//valid avg since buff is full, def vals are zeros
@@ -286,8 +273,8 @@
 		    <tr>
 			    <td><button onclick="widthPlus(10)" >PLUS</button></td><!-- 1 -->
 				<td><button onclick="widthPlus(-10)">MINUS</button></td><!-- 2 -->
-				<td><button onclick="draw1()">draw1</button></td><!-- 3 -->
-				<td><button onclick="initUsb()">initUsb</button></td></td><!-- 4 -->
+				<td><button onclick="getUSBDevices()">getUSBDevices</button></td><!-- 3 -->
+				<td><button onclick="requestUSBDevice()">requestUSBDevice</button></td></td><!-- 4 -->
 				<td></td><!-- 5 -->
 			<tr>
 			<tr>
