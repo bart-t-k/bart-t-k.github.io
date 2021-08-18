@@ -188,7 +188,7 @@
 					t_output4.innerHTML+="opening reader<br>";
 					let bReader = serialPort.readable.getReader();
 		
-		document.getElementById('bVer').innerHTML='v16.22';
+		document.getElementById('bVer').innerHTML='v16.222222';
 		
 		
 		
@@ -218,9 +218,9 @@
 			function process(chunk){
 			    frags = chunk.split('\n');
 				for(val in frags){
-				    t_output4.innerHTML += val.length + " " + frags[val] + "<br>";
+				    t_output4.innerHTML += frags[val].length + " " + frags[val] + "<br>";
 				}
-				t_output4.innerHTML += "<br>";
+				t_output4.innerHTML += "<hr>";
 			}
 			
 			async function getSerial(){
