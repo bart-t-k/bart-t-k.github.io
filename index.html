@@ -188,7 +188,7 @@
 					t_output4.innerHTML+="opening reader<br>";
 					let bReader = serialPort.readable.getReader();
 		
-		document.getElementById('bVer').innerHTML='v17.2';
+		document.getElementById('bVer').innerHTML='v17.3';
 		
 		
 		
@@ -236,8 +236,10 @@
 				for(i in messages){
 				    if (messages[i].length>0) {
 					        //t_output4.innerHTML+=  messages[i].length +"/ " + messages[i]+"<br>";
-							t_output4.innerHTML+=  messages[i].length +"/ " + messages[i]+ " data:" + data[1] + "  timepos: " + timePosition + "<br>";
 							let data = messages[i].split();
+							
+							t_output4.innerHTML+=  messages[i].length +"/ " + messages[i]+ " data:" + data[1] + "  timepos: " + timePosition + "<br>";
+							
 							if(data[1]){
 							    timePosition+=timeTick;
 							    drawNextData2(timePosition, data);
