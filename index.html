@@ -45,7 +45,7 @@
 				}*/
 				
 				try{
-				    navigator.usb.requestDevice()
+				    navigator.usb.requestDevice( { filters: null } )
 						.then(usbDevice => {
 						  console.log("Product name: " + usbDevice.productName);
 						  t_output4.innerHTML+="navigator.usb.requestDevice Product name: " + usbDevice.productName+"<br>";
