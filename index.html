@@ -188,7 +188,7 @@
 					t_output4.innerHTML+="opening reader<br>";
 					let bReader = serialPort.readable.getReader();
 		
-		document.getElementById('bVer').innerHTML='v16.444';
+		document.getElementById('bVer').innerHTML='v16.4444';
 		
 		
 		
@@ -230,7 +230,7 @@
 					return;
 				}
 				messages = chunk.split('\r\n');
-				for({i,v} in messaages){
+				for({i,v} in messages){
 				    t_output4.innerHTML+=  v.length +"/ " + v+"<br>";
 				}
 				t_output4.innerHTML+="<hr>";
