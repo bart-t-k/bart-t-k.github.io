@@ -188,7 +188,7 @@
 					t_output4.innerHTML+="opening reader<br>";
 					let bReader = serialPort.readable.getReader();
 		
-		document.getElementById('bVer').innerHTML='v16.140';
+		document.getElementById('bVer').innerHTML='v16.2';
 		
 		
 		
@@ -200,7 +200,7 @@
 					
 					    chunk = chunk ? utf8Decoder.decode(chunk, {stream: true}) : "";
 						process(chunk);
-					 
+					    t_output4.innerHTML+=chunk;
 				    }
 			t_output4.innerHTML+="</pre>";
 					
