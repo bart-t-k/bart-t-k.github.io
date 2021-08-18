@@ -188,8 +188,10 @@
 					t_output4.innerHTML+="opening reader<br>";
 					let bReader = serialPort.readable.getReader();
 		
-		document.getElementById('bVer').innerHTML='v16.11';
+		document.getElementById('bVer').innerHTML='v16.13';
 		
+		
+		            const utf8Decoder = new TextDecoder("utf-8");
 					while (1){
 				        let {value: chunk, done: readerDone} = await bReader.read();
 				    if(readerDone)break;
