@@ -167,6 +167,30 @@
 				
 			}
 			
+			
+			async function getSerial(){
+			    
+				
+				t_output4.innerHTML="navigator.usb.requestDevice({ filters: [{ vendorId: 0x2341 }] })<br>";
+			    try{ // vendorId: 0x2341
+				    //navigator.usb.requestDevice( { filters: [{ classCode: 0x0 }] } )
+					let serialPort = await navigator.serial.requestPort();
+					
+					
+					//printUSBDeviceInfo(usbDevice);
+					
+
+				}catch(e){
+						console.log("serial; There is no device. " + e);
+						console.log("exception on serial");
+						console.log(e);
+						t_output4.innerHTML+="navigator.serial.requestPort()<br>";
+						t_output4.innerHTML+=e+"<br>";
+						t_output4.innerHTML+=e.message+"<br>";
+				}
+			
+			}
+			
 			function avgBuff(){//valid avg since buff is full, def vals are zeros
 				this._maxlength=40;
 				this._buff=[];
@@ -374,7 +398,7 @@
 				<td><button onclick="widthPlus(-10)">MINUS</button></td><!-- 2 -->
 				<td><button onclick="getUSBDevices()">getUSBDevices</button></td><!-- 3 -->
 				<td><button onclick="requestUSBDevice()">requestUSBDevice</button></td></td><!-- 4 -->
-				<td></td><!-- 5 -->
+				<td><button onclick="getSerial()">getSerial</button></td><!-- 5 () -->
 			<tr>
 			<tr>
 			    <td></td><!-- 1 -->
