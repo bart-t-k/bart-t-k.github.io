@@ -171,14 +171,14 @@
 			async function getSerial(){
 			    
 				
-				t_output4.innerHTML="navigator.usb.requestDevice({ filters: [{ vendorId: 0x2341 }] })<br>";
+				t_output4.innerHTML="requesting serial...<br>";
 			    try{ // vendorId: 0x2341
 				    //navigator.usb.requestDevice( { filters: [{ classCode: 0x0 }] } )
 					let serialPort = await navigator.serial.requestPort();
 					
 					
 					
-					let session = await serialPort.open();
+					let session = await serialPort.open(  { baudRate: 115200 } );
 					
 					t_output4.innerHTML+="serialPort.readable:"+serialPort.readable+"<br>";
 					t_output4.innerHTML+="serialPort.writable:"+serialPort.writable+"<br>";
@@ -396,7 +396,7 @@
 		</script>
 	</head>
 	<body onload="init()">
-	  v13
+	  v13.1
 	
 	    <canvas id="g_output" width="1500" height="300" ></canvas>
 		
