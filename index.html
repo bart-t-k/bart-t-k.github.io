@@ -187,7 +187,15 @@
 					
 					t_output4.innerHTML+="opening reader<br>";
 					let bReader = serialPort.readable.getReader();
-					processReader(bReader);
+					
+					while (1){
+				        let chunk = await read();
+				    //if(chunk.done)break;
+					
+					t_output4.innerHTML+=" "+chunk.value;
+				    }
+					
+					
 					t_output4.innerHTML+="<br>reader done<br>";
 					
 
@@ -203,11 +211,7 @@
 			
 			}
 			async function processReader(reader){
-			    while (1){
-				    let chunk = await read();
-				    if(chunk.done)break;
-					t_output4.innerHTML+=" "+chunk;
-				}
+			    
 			}
 			
 			async function getSerial(){
@@ -441,7 +445,7 @@
 		</script>
 	</head>
 	<body onload="init()">
-	  v13.2
+	  v13.15
 	
 	    <canvas id="g_output" width="1500" height="300" ></canvas>
 		
