@@ -188,11 +188,10 @@
 					t_output4.innerHTML+="opening reader<br>";
 					let bReader = serialPort.readable.getReader();
 		
-		document.getElementById('bVer').innerHTML='v16.2';
+		document.getElementById('bVer').innerHTML='v16.22';
 		
 		
 		
-		    t_output4.innerHTML+="<pre>";
 		            const utf8Decoder = new TextDecoder("utf-8");
 					while (1){
 				        let {value: chunk, done: readerDone} = await bReader.read();
@@ -200,10 +199,7 @@
 					
 					    chunk = chunk ? utf8Decoder.decode(chunk, {stream: true}) : "";
 						process(chunk);
-					    t_output4.innerHTML+=chunk;
-				    }
-			t_output4.innerHTML+="</pre>";
-					
+				    }					
 					t_output4.innerHTML+="<br>reader done<br>";
 								
 
@@ -220,7 +216,11 @@
 			}
 			var rest="";
 			function process(chunk){
-			    
+			    frags = chunk.split('\n');
+				for(val in frags){
+				    t_output4.innerHTML += val.length + " " + frags[val] + "<br>";
+				}
+				t_output4.innerHTML += "<br>";
 			}
 			
 			async function getSerial(){
