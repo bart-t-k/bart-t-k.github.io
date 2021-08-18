@@ -188,7 +188,7 @@
 					t_output4.innerHTML+="opening reader<br>";
 					let bReader = serialPort.readable.getReader();
 		
-		document.getElementById('bVer').innerHTML='v16.4';
+		document.getElementById('bVer').innerHTML='v16.44';
 		
 		
 		
@@ -221,8 +221,8 @@
 				//message contains list of numbers
 				//initially, time signal and value, timesignal alternate 10x per sec (10x1 and 10x0 in one sec)
 				
-				//add partial message
-				let chunk = partialMessage + chunk;
+				//add partial message to hte chunk
+				chunk = partialMessage + chunk;
 				partialMessage = "";
 				
 				if(!chunk.endsWith('\n'){
