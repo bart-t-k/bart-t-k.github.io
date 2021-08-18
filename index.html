@@ -44,8 +44,9 @@
 						t_output4.innerHTML+=exc.message+"<br>";
 				}*/
 				
-				try{
-				    navigator.usb.requestDevice( { filters: [{ classCode: 0x0 }] } )
+				try{ // vendorId: 0x2341
+				    //navigator.usb.requestDevice( { filters: [{ classCode: 0x0 }] } )
+					navigator.usb.requestDevice({ filters: [{ vendorId: 0x2341 }] })
 						.then(usbDevice => {
 						  console.log("Product name: " + usbDevice.productName);
 						  t_output4.innerHTML+="navigator.usb.requestDevice Product name: " + usbDevice.productName+"<br>";
