@@ -45,13 +45,30 @@
 				}*/
 				
 				try{
+				    navigator.usb.requestDevice()
+						.then(usbDevice => {
+						  console.log("Product name: " + usbDevice.productName);
+						  t_output4.innerHTML+="navigator.usb.requestDevice Product name: " + usbDevice.productName+"<br>";
+						})
+						.catch(e => {
+						  console.log("There is no device. " + e);
+						  console.log("2. exception on usb");
+						console.log(exc);
+						t_output4.innerHTML+="exception on usb<br>";
+						t_output4.innerHTML+=exc+"<br>";
+						t_output4.innerHTML+=exc.message+"<br>";
+						});
+				
+				}catch(exc){}
+				
+				try{
 					navigator.usb.getDevices()
 					.then(devices => {
-					  console.log("Total devices: " + devices.length);
-					  t_output4.innerHTML+="Total devices: " + devices.length+"<br>";
+					  console.log("navigator.usb.getDevices Total devices: " + devices.length);
+					  t_output4.innerHTML+="navigator.usb.getDevices Total devices: " + devices.length+"<br>";
 					  devices.forEach(device => {
-						console.log("Product name: " + device.productName + ", serial number " + device.serialNumber);
-						t_output4.innerHTML+="Product name: " + device.productName + ", serial number " + device.serialNumber+"<br>";
+						console.log("navigator.usb.getDevices Product name: " + device.productName + ", serial number " + device.serialNumber);
+						t_output4.innerHTML+="navigator.usb.getDevices Product name: " + device.productName + ", serial number " + device.serialNumber+"<br>";
 					  });
 					});
 				}catch(exc){
