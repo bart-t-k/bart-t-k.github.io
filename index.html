@@ -188,13 +188,13 @@
 					t_output4.innerHTML+="opening reader<br>";
 					let bReader = serialPort.readable.getReader();
 		
-		document.getElementById('bVer').innerHTML='v14.1';
+		document.getElementById('bVer').innerHTML='v15.1';
 		
 					while (1){
-				        let chunk = await bReader.read();
-				    if(chunk.done)break;
+				        let {value: chunk, done: readerDone} = await bReader.read();
+				    if(readerDone)break;
 					
-					t_output4.innerHTML+= " {" + chunk.done + " "+chunk.value + "}";
+					t_output4.innerHTML+= " {" + readerDone + " "+chunk + "}";
 				    }
 					
 					
