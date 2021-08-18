@@ -188,7 +188,7 @@
 					t_output4.innerHTML+="opening reader<br>";
 					let bReader = serialPort.readable.getReader();
 		
-		document.getElementById('bVer').innerHTML='v16.4444';
+		document.getElementById('bVer').innerHTML='v16.44444';
 		
 		
 		
@@ -222,6 +222,7 @@
 				//initially, time signal and value, timesignal alternate 10x per sec (10x1 and 10x0 in one sec)
 				
 				//add partial message to hte chunk
+				
 				chunk = partialMessage + chunk;
 				partialMessage = "";
 				
@@ -230,8 +231,8 @@
 					return;
 				}
 				messages = chunk.split('\r\n');
-				for({i,v} in messages){
-				    t_output4.innerHTML+=  v.length +"/ " + v+"<br>";
+				for(i in messages){
+				    t_output4.innerHTML+=  messages[i].length +"/ " + messages[i].+"<br>";
 				}
 				t_output4.innerHTML+="<hr>";
 			}
