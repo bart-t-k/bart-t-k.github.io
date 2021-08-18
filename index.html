@@ -23,8 +23,47 @@
 			var t_output3=null;
 			var t_output4=null;
 			
+			async function requestUSBDevice(){
+			    t_output4.innerHTML="navigator.usb.requestDevice({ filters: [{ vendorId: 0x2341 }] })<br>";
+			    try{ // vendorId: 0x2341
+				    //navigator.usb.requestDevice( { filters: [{ classCode: 0x0 }] } )
+					usbDevice = await navigator.usb.requestDevice({ filters: [{ vendorId: 0x2341 }] });
+					printUSBDeviceInfo(usbDevice);
+					
+					session = await usbDevice.open();
+
+				}catch(e){
+						console.log("There is no device. " + e);
+						console.log("2. exception on usb");
+						console.log(e);
+						t_output4.innerHTML+="requestUSBDevice: exception on usb<br>";
+						t_output4.innerHTML+=e+"<br>";
+						t_output4.innerHTML+=e.message+"<br>";
+				}
+			}
 			
-			function requestUSBDevice(){
+			function printUSBDeviceInfo(usbDevice){
+						  console.log("Product name: " + usbDevice.productName);
+						  t_output4.innerHTML+="deviceClass: " + usbDevice.deviceClass+"<br>";
+						  t_output4.innerHTML+="deviceProtocol : " + usbDevice.deviceProtocol +"<br>";
+						  t_output4.innerHTML+="deviceSubclass: " + usbDevice.deviceSubclass+"<br>";
+						  t_output4.innerHTML+="deviceVersionMajor: " + usbDevice.deviceVersionMajor+"<br>";
+						  t_output4.innerHTML+="deviceVersionMinor: " + usbDevice.deviceVersionMinor+"<br>";
+						  t_output4.innerHTML+="deviceVersionSubminor: " + usbDevice.deviceVersionSubminor+"<br>";
+						  t_output4.innerHTML+="manufacturerName : " + usbDevice.manufacturerName +"<br>";
+						  t_output4.innerHTML+="opened : " + usbDevice.opened +"<br>";
+						  t_output4.innerHTML+="productId  : " + usbDevice.productId  +"<br>";
+						  t_output4.innerHTML+="productName  : " + usbDevice.productName  +"<br>";
+						  t_output4.innerHTML+="serialNumber: " + usbDevice.serialNumber+"<br>";
+						  t_output4.innerHTML+="usbVersionMajor  : " + usbDevice.usbVersionMajor  +"<br>";
+						  t_output4.innerHTML+="usbVersionMinor : " + usbDevice.usbVersionMinor +"<br>";
+						  t_output4.innerHTML+="usbVersionSubminor : " + usbDevice.usbVersionSubminor +"<br>";
+						  t_output4.innerHTML+="vendorId : " + usbDevice.vendorId + " (0x" + usbDevice.vendorId.toString(16) + ")<br>";
+						  t_output4.innerHTML+="configuration : " + usbDevice.configuration +"<br>";
+						  t_output4.innerHTML+="configurations : " + usbDevice.configurations +"<br>";	
+			}
+			
+			function requestUSBDevice_old(){
 			    t_output4.innerHTML="navigator.usb.requestDevice({ filters: [{ vendorId: 0x2341 }] })<br>";
 			    try{ // vendorId: 0x2341
 				    //navigator.usb.requestDevice( { filters: [{ classCode: 0x0 }] } )
@@ -45,7 +84,7 @@
 						  t_output4.innerHTML+="usbVersionMajor  : " + usbDevice.usbVersionMajor  +"<br>";
 						  t_output4.innerHTML+="usbVersionMinor : " + usbDevice.usbVersionMinor +"<br>";
 						  t_output4.innerHTML+="usbVersionSubminor : " + usbDevice.usbVersionSubminor +"<br>";
-						  t_output4.innerHTML+="vendorId : " + usbDevice.vendorId + " 0x" + usbDevice.vendorId.toString(16) + "<br>";
+						  t_output4.innerHTML+="vendorId : " + usbDevice.vendorId + " (0x" + usbDevice.vendorId.toString(16) + ")<br>";
 						  t_output4.innerHTML+="configuration : " + usbDevice.configuration +"<br>";
 						  t_output4.innerHTML+="configurations : " + usbDevice.configurations +"<br>";
 						})
@@ -83,7 +122,7 @@
 						  t_output4.innerHTML+="usbVersionMajor  : " + usbDevice.usbVersionMajor  +"<br>";
 						  t_output4.innerHTML+="usbVersionMinor : " + usbDevice.usbVersionMinor +"<br>";
 						  t_output4.innerHTML+="usbVersionSubminor : " + usbDevice.usbVersionSubminor +"<br>";
-						  t_output4.innerHTML+="vendorId : " + usbDevice.vendorId + " 0x" + usbDevice.vendorId.toString(16) + "<br>";
+						  t_output4.innerHTML+="vendorId : " + usbDevice.vendorId + " (0x" + usbDevice.vendorId.toString(16) + ")<br>";
 						  t_output4.innerHTML+="configuration : " + usbDevice.configuration +"<br>";
 						  t_output4.innerHTML+="configurations : " + usbDevice.configurations +"<br>";
 					  });
@@ -96,9 +135,34 @@
 						t_output4.innerHTML+=exc.message+"<br>";
 				}
 			}
-			function initUsb(){
+			
+			function initUsb(usbDevice){
 			    //t_output4.innerHTML="";
+				
+				//session = await usbDevice.open();
+				
+				
+				let device;
 
+				navigator.usb.requestDevice({ filters: [{ vendorId: 0x2341 }] })
+				.then(selectedDevice => {
+					device = selectedDevice;
+					return device.open(); // Begin a session.
+				  })
+				.then(() => device.selectConfiguration(1)) // Select configuration #1 for the device.
+				.then(() => device.claimInterface(2)) // Request exclusive control over interface #2.
+				.then(() => device.controlTransferOut({
+					requestType: 'class',
+					recipient: 'interface',
+					request: 0x22,
+					value: 0x01,
+					index: 0x02})) // Ready to receive data
+				.then(() => device.transferIn(5, 64)) // Waiting for 64 bytes of data from endpoint #5.
+				.then(result => {
+				  const decoder = new TextDecoder();
+				  console.log('Received: ' + decoder.decode(result.data));
+				})
+				.catch(error => { console.error(error); });
 				
 			}
 			
