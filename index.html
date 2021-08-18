@@ -176,6 +176,11 @@
 				    //navigator.usb.requestDevice( { filters: [{ classCode: 0x0 }] } )
 					let serialPort = await navigator.serial.requestPort();
 					
+					t_output4.innerHTML+="serialPort.readable:"+serialPort.readable+"<br>";
+					t_output4.innerHTML+="serialPort.writable:"+serialPort.writable+"<br>";
+					t_output4.innerHTML+="<br>";
+					
+					SerialPort.open();
 					
 					//printUSBDeviceInfo(usbDevice);
 					
