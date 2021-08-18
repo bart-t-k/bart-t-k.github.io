@@ -27,7 +27,7 @@
 			    t_output4.innerHTML="navigator.usb.requestDevice({ filters: [{ vendorId: 0x2341 }] })<br>";
 			    try{ // vendorId: 0x2341
 				    //navigator.usb.requestDevice( { filters: [{ classCode: 0x0 }] } )
-					usbDevice = await navigator.usb.requestDevice({ filters: [{ vendorId: 0x2341 }] });
+					let usbDevice = await navigator.usb.requestDevice({ filters: [{ vendorId: 0x2341 }] });
 					printUSBDeviceInfo(usbDevice);
 					
 					t_output4.innerHTML+="trying to open...<br>";
@@ -168,7 +168,7 @@
 			}
 			
 			
-			async function getSerial(){
+			async function requestSerial(){
 			    
 				
 				t_output4.innerHTML="requesting serial...<br>";
@@ -176,9 +176,51 @@
 				    //navigator.usb.requestDevice( { filters: [{ classCode: 0x0 }] } )
 					let serialPort = await navigator.serial.requestPort();
 					
-					
+					serialPort.addEventListener('connect',    (event)=>{t_output4.innerHTML+="onConnect" + event + "<br>";});
+					serialPort.addEventListener('disconnect', (event)=>{t_output4.innerHTML+="onDisconnect" + event + "<br>";});
 					
 					let session = await serialPort.open(  { baudRate: 115200 } );
+					
+					t_output4.innerHTML+="serialPort.readable:"+serialPort.readable+"<br>";
+					t_output4.innerHTML+="serialPort.writable:"+serialPort.writable+"<br>";
+					
+					
+					t_output4.innerHTML+="opening reader<br>";
+					let bReader = serialPort.readable.getReader();
+					processReader(bReader);
+					t_output4.innerHTML+="<br>reader done<br>";
+					
+
+				}catch(e){
+						console.log("serial; There is no device. " + e);
+						console.log("exception on serial");
+						console.log(e);
+						t_output4.innerHTML+="navigator.serial.requestPort()<br>";
+						t_output4.innerHTML+=e+"<br>";
+						t_output4.innerHTML+=e.message+"<br>";
+						
+				}
+			
+			}
+			async function processReader(reader){
+			    while (1){
+				    let chunk = await read();
+				    if(chunk.done)break;
+					t_output4.innerHTML+=" "+chunk;
+				}
+			}
+			
+			async function getSerial(){
+			    
+				
+				t_output4.innerHTML="requesting serial...<br>";
+			    try{ // vendorId: 0x2341
+				    //navigator.usb.requestDevice( { filters: [{ classCode: 0x0 }] } )
+					//let serialPort = await navigator.serial.requestPort();
+					
+					
+					
+					//let session = await serialPort.open(  { baudRate: 115200 } );
 					
 					t_output4.innerHTML+="serialPort.readable:"+serialPort.readable+"<br>";
 					t_output4.innerHTML+="serialPort.writable:"+serialPort.writable+"<br>";
@@ -197,6 +239,9 @@
 				}
 			
 			}
+			
+			
+			
 			
 			function avgBuff(){//valid avg since buff is full, def vals are zeros
 				this._maxlength=40;
@@ -396,7 +441,7 @@
 		</script>
 	</head>
 	<body onload="init()">
-	  v13.1
+	  v13.2
 	
 	    <canvas id="g_output" width="1500" height="300" ></canvas>
 		
@@ -407,13 +452,13 @@
 				<td><button onclick="widthPlus(-10)">MINUS</button></td><!-- 2 -->
 				<td><button onclick="getUSBDevices()">getUSBDevices</button></td><!-- 3 -->
 				<td><button onclick="requestUSBDevice()">requestUSBDevice</button></td></td><!-- 4 -->
-				<td><button onclick="getSerial()">getSerial</button></td><!-- 5 () -->
+				<td></td><!-- 5 () -->
 			<tr>
 			<tr>
 			    <td></td><!-- 1 -->
 				<td></td><!-- 2 -->
-				<td></td><!-- 3 -->
-				<td></td><!-- 4 -->
+				<td><button onclick="getSerial()">getSerial</button></td><!-- 3 -->
+				<td><button onclick="requestSerial()">requestSerial</button></td><!-- 4 -->
 				<td></td><!-- 5 -->
 			<tr>
 			<tr>
