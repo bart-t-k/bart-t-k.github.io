@@ -176,11 +176,13 @@
 				    //navigator.usb.requestDevice( { filters: [{ classCode: 0x0 }] } )
 					let serialPort = await navigator.serial.requestPort();
 					
+					
+					
+					let session = await serialPort.open();
+					
 					t_output4.innerHTML+="serialPort.readable:"+serialPort.readable+"<br>";
 					t_output4.innerHTML+="serialPort.writable:"+serialPort.writable+"<br>";
 					t_output4.innerHTML+="<br>";
-					
-					serialPort.open();
 					
 					//printUSBDeviceInfo(usbDevice);
 					
@@ -394,7 +396,7 @@
 		</script>
 	</head>
 	<body onload="init()">
-	  v12
+	  v13
 	
 	    <canvas id="g_output" width="1500" height="300" ></canvas>
 		
