@@ -184,7 +184,7 @@
 					t_output4.innerHTML+="opening reader<br>";
 					let bReader = serialPort.readable.getReader();
 		
-		document.getElementById('bVer').innerHTML='v18.11';
+		document.getElementById('bVer').innerHTML='v18.111';
 		
 		
 		
@@ -238,7 +238,7 @@
 							//t_output4.innerHTML+=  messages[i].length +"/ " + messages[i]+ " data:" + data[1] + "  timepos: " + timePosition + "<br>";
 							if(data[1]){
 							    timePosition+=timeTick;
-							    drawNextData2(timePosition, data[1]);
+							    drawNextData2(timePosition, data[1]*document.getElementById('b_scale').value);
 							}
 						}
 				}
@@ -502,7 +502,7 @@
 			<tr>
 			<tr>
 			    <td>scale</td><!-- 1 -->
-				<td><input id="b_scale"></td><!-- 2 -->
+				<td><input id="b_scale" value="1"></td><!-- 2 -->
 				<td></td><!-- 3 -->
 				<td></td><!-- 4 -->
 				<td></td><!-- 5 -->
