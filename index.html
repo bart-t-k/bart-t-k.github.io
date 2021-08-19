@@ -172,8 +172,8 @@
 			    
 				
 				t_output4.innerHTML="requesting serial...<br>";
-			    try{ // vendorId: 0x2341
-				    //navigator.usb.requestDevice( { filters: [{ classCode: 0x0 }] } )
+			    try{ 
+				
 					let serialPort = await navigator.serial.requestPort();
 					
 					serialPort.addEventListener('connect',    (event)=>{t_output4.innerHTML+="onConnect" + event + "<br>";});
@@ -181,14 +181,10 @@
 					
 					let session = await serialPort.open(  { baudRate: 115200 } );
 					
-					t_output4.innerHTML+="serialPort.readable:"+serialPort.readable+"<br>";
-					t_output4.innerHTML+="serialPort.writable:"+serialPort.writable+"<br>";
-					
-					
 					t_output4.innerHTML+="opening reader<br>";
 					let bReader = serialPort.readable.getReader();
 		
-		document.getElementById('bVer').innerHTML='v18.1ms';
+		document.getElementById('bVer').innerHTML='v18.11';
 		
 		
 		
@@ -217,6 +213,7 @@
 			var partialMessage="";
 			timePosition=0;
 			timeTick=1; //ms
+			process_starttime=Date.now();
 			function process(chunk){
 			    //messaage shall end with CD/LF  \r\n
 				//chunk may have part of message, or more than 1 message
@@ -239,7 +236,6 @@
 							let data = messages[i].split(' ');
 							
 							//t_output4.innerHTML+=  messages[i].length +"/ " + messages[i]+ " data:" + data[1] + "  timepos: " + timePosition + "<br>";
-							
 							if(data[1]){
 							    timePosition+=timeTick;
 							    drawNextData2(timePosition, data[1]);
@@ -505,8 +501,8 @@
 				<td></td><!-- 5 -->
 			<tr>
 			<tr>
-			    <td></td><!-- 1 -->
-				<td></td><!-- 2 -->
+			    <td>scale</td><!-- 1 -->
+				<td><input id="b_scale"></td><!-- 2 -->
 				<td></td><!-- 3 -->
 				<td></td><!-- 4 -->
 				<td></td><!-- 5 -->
